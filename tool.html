@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小工具合集</title>
+    <style type="text/css">
+        body {
+            background-color: #2a2d3e;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .icon {
+            width: 100%;
+            height: 150px;
+            background-color: #3a2d3e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .tool-container {
+            display: none;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #3a3a4e;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        .active-tool {
+            display: block;
+        }
+        .nav-button {
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            border-bottom: 4px solid #2E7D32;
+            position: relative;
+            transition: all 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #3e8e41;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+        .nav-button:active {
+            border-bottom-width: 0;
+            transform: translateY(4px);
+        }
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .calculator-display {
+            grid-column: span 5;
+            background-color: #eee;
+            color: #333;
+            padding: 15px;
+            text-align: right;
+            font-size: 24px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            height: 30px;
+            overflow: hidden;
+        }
+        .calculator button {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #555;
+            color: white;
+        }
+        .calculator button:hover {
+            background-color: #777;
+        }
+        .calculator button.operator {
+            background-color: #ff9500;
+        }
+        .calculator button.operator:hover {
+            background-color: #ffaa33;
+        }
+        .calculator button.clear {
+            background-color: #a5a5a5;
+            color: black;
+        }
+        .calculator button.equals {
+            background-color: #ff9500;
+            grid-column: span 2;
+        }
+        .calculator button.scientific {
+            background-color: #444;
+            font-size: 14px;
+        }
+        .stopwatch, .countdown, .bpm-meter, .time-display {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .time-display {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .time-box {
+            margin: 10px;
+            padding: 15px;
+            background-color: #3a3a4e;
+            border-radius: 8px;
+            min-width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #3e8e41;
+        }
+        input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        .bpm-result {
+            font-size: 32px;
+            color: #ff9500;
+            margin: 20px 0;
+        }
+        .custom-timezone {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #3a3a4e;
+            border-radius: 8px;
+        }
+        .tool-nav {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 原有导航栏 -->
+    <div style="display:flex;justify-content:center">
+        <nav style="display:flex;gap:15px;padding:20px">
+            <a href="home.html" class="nav-button">首页</a>
+            <a href="about.html" class="nav-button">关于</a>
+            <a href="charts.html" class="nav-button">我的谱面</a>
+            <a href="server.html" class="nav-button">服务器</a>
+        </nav>
+    </div>
+    
+    <div class="icon">
+        <img src="icon.avif" width="100" height="100" />
+        <font color="yellow"><marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong></marquee></font>
+        <!-- 新增工具导航栏 -->
+        <div class="tool-nav">
+            <a href="#" class="nav-button" onclick="showTool('calculator')">计算器</a>
+            <a href="#" class="nav-button" onclick="showTool('stopwatch')">秒表</a>
+            <a href="#" class="nav-button" onclick="showTool('countdown')">倒计时</a>
+            <a href="#" class="nav-button" onclick="showTool('bpm')">BPM测量</a>
+            <a href="#" class="nav-button" onclick="showTool('time')">时间</a>
+            <a href="https://cbs001.github.io/open-phiedit" class="nav-button">制谱器(不是我写的)</a>
+        </div>
+    </div>
+    
+    <h1>小工具合集</h1>
+    
+    <!-- 计算器 -->
+    <div id="calculator" class="tool-container active-tool">
+        <div class="calculator-display" id="calc-display">0</div>
+        <div class="calculator">
+            <button class="clear" onclick="clearCalc()">C</button>
+            <button onclick="backspaceCalc()">←</button>
+            <button onclick="appendToCalc('(')">(</button>
+            <button onclick="appendToCalc(')')">)</button>
+            <button class="operator" onclick="appendToCalc('/')">/</button>
+            
+            <button class="scientific" onclick="calculateFunction('Math.sin')">sin</button>
+            <button class="scientific" onclick="calculateFunction('Math.cos')">cos</button>
+            <button class="scientific" onclick="calculateFunction('Math.tan')">tan</button>
+            <button class="scientific" onclick="appendToCalc('Math.PI')">π</button>
+            <button class="operator" onclick="appendToCalc('*')">×</button>
+            
+            <button class="scientific" onclick="calculateFunction('Math.asin')">asin</button>
+            <button class="scientific" onclick="calculateFunction('Math.acos')">acos</button>
+            <button class="scientific" onclick="calculateFunction('Math.atan')">atan</button>
+            <button class="scientific" onclick="appendToCalc('Math.E')">e</button>
+            <button class="operator" onclick="appendToCalc('-')">-</button>
+            
+            <button class="scientific" onclick="calculateFunction('Math.log')">ln</button>
+            <button class="scientific" onclick="calculateFunction('Math.log10')">log</button>
+            <button class="scientific" onclick="appendToCalc('**2')">x²</button>
+            <button class="scientific" onclick="appendToCalc('**0.5')">√</button>
+            <button class="operator" onclick="appendToCalc('+')">+</button>
+            
+            <button class="scientific" onclick="appendToCalc('**')">x^y</button>
+            <button onclick="appendToCalc('7')">7</button>
+            <button onclick="appendToCalc('8')">8</button>
+            <button onclick="appendToCalc('9')">9</button>
+            <button class="operator" onclick="appendToCalc('%')">%</button>
+            
+            <button class="scientific" onclick="calculateFunction('Math.exp')">exp</button>
+            <button onclick="appendToCalc('4')">4</button>
+            <button onclick="appendToCalc('5')">5</button>
+            <button onclick="appendToCalc('6')">6</button>
+            <button class="operator" onclick="appendToCalc('**3')">x³</button>
+            
+            <button class="scientific" onclick="calculateFunction('factorial')">n!</button>
+            <button onclick="appendToCalc('1')">1</button>
+            <button onclick="appendToCalc('2')">2</button>
+            <button onclick="appendToCalc('3')">3</button>
+            <button class="operator" onclick="appendToCalc('1/')">1/x</button>
+            
+            <button class="scientific" onclick="appendToCalc('10**')">10^x</button>
+            <button onclick="appendToCalc('0')">0</button>
+            <button onclick="appendToCalc('.')">.</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+    
+    <!-- 秒表 -->
+    <div id="stopwatch" class="tool-container">
+        <div class="stopwatch">
+            <h2>秒表</h2>
+            <div id="stopwatch-display">00:00:00.00000</div>
+            <div id="lap-count">计次: 0</div>
+            <div id="lap-times"></div>
+            <button onclick="startStopwatch()">开始</button>
+            <button onclick="stopStopwatch()">停止</button>
+            <button onclick="lapStopwatch()">计次</button>
+            <button onclick="resetStopwatch()">重置</button>
+        </div>
+    </div>
+    
+    <!-- 倒计时 -->
+    <div id="countdown" class="tool-container">
+        <div class="countdown">
+            <h2>倒计时器</h2>
+            <div id="countdown-display">00:00:00.000</div>
+            <input type="number" id="minutes-input" placeholder="分钟" min="0">
+            <input type="number" id="seconds-input" placeholder="秒" min="0" max="59">
+            <input type="number" id="milliseconds-input" placeholder="毫秒" min="0" max="999">
+            <br>
+            <button onclick="startCountdown()">开始</button>
+            <button onclick="pauseCountdown()">暂停</button>
+            <button onclick="resetCountdown()">重置</button>
+        </div>
+    </div>
+    
+    <!-- BPM测量 -->
+    <div id="bpm" class="tool-container">
+        <div class="bpm-meter">
+            <h2>BPM测量工具</h2>
+            <button onclick="tapBPM()">点击测量</button>
+            <div class="bpm-result" id="bpm-result">0 BPM</div>
+            <div id="tap-count">点击次数: 0</div>
+            <button onclick="resetBPM()">重置</button>
+        </div>
+    </div>
+    
+    <!-- 时间显示 -->
+    <div id="time" class="tool-container">
+        <div class="time-display">
+            <h2 style="width:100%">当前时间</h2>
+            <div class="time-box">
+                <h3>本地时间</h3>
+                <div id="local-time">--:--:--.---</div>
+            </div>
+            <div class="time-box">
+                <h3>UTC时间</h3>
+                <div id="utc-time">--:--:--.---</div>
+            </div>
+            <div class="time-box">
+                <h3>纽约时间</h3>
+                <div id="ny-time">--:--:--.---</div>
+            </div>
+            <div class="time-box">
+                <h3>伦敦时间</h3>
+                <div id="london-time">--:--:--.---</div>
+            </div>
+            <div class="time-box">
+                <h3>东京时间</h3>
+                <div id="tokyo-time">--:--:--.---</div>
+            </div>
+            
+            <!-- 自定义时区 -->
+            <div class="custom-timezone">
+                <h3>自定义时区</h3>
+                <input type="number" id="timezone-input" placeholder="时区 (如+8或-5)" min="-12" max="14" step="0.5">
+                <button onclick="addCustomTimezone()">添加时区</button>
+                <div id="custom-timezones"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 工具切换功能
+        function showTool(toolId) {
+            document.querySelectorAll('.tool-container').forEach(tool => {
+                tool.classList.remove('active-tool');
+            });
+            document.getElementById(toolId).classList.add('active-tool');
+        }
+        
+        // 计算器功能
+        let calcDisplay = '0';
+        
+        function updateCalcDisplay() {
+            document.getElementById('calc-display').textContent = calcDisplay;
+        }
+        
+        function appendToCalc(value) {
+            if (calcDisplay === '0' && !['.', '(', '1/', '**', '10**', 'Math.'].includes(value)) {
+                calcDisplay = value;
+            } else {
+                calcDisplay += value;
+            }
+            updateCalcDisplay();
+        }
+        
+        function clearCalc() {
+            calcDisplay = '0';
+            updateCalcDisplay();
+        }
+        
+        function backspaceCalc() {
+            if (calcDisplay.length === 1) {
+                calcDisplay = '0';
+            } else {
+                calcDisplay = calcDisplay.slice(0, -1);
+            }
+            updateCalcDisplay();
+        }
+        
+        function calculate() {
+            try {
+                // 处理特殊函数输入
+                let expression = calcDisplay;
+                if (expression.includes('1/')) {
+                    expression = expression.replace('1/', '1/(') + ')';
+                }
+                if (expression.includes('10**')) {
+                    expression = expression.replace('10**', '10**(') + ')';
+                }
+                
+                calcDisplay = eval(expression).toString();
+                updateCalcDisplay();
+            } catch (error) {
+                calcDisplay = '错误';
+                updateCalcDisplay();
+                setTimeout(clearCalc, 1000);
+            }
+        }
+        
+        function calculateFunction(func) {
+            try {
+                if (func === 'factorial') {
+                    calcDisplay = factorial(eval(calcDisplay)).toString();
+                } else {
+                    calcDisplay = eval(func + '(' + calcDisplay + ')').toString();
+                }
+                updateCalcDisplay();
+            } catch (error) {
+                calcDisplay = '错误';
+                updateCalcDisplay();
+                setTimeout(clearCalc, 1000);
+            }
+        }
+        
+        // 阶乘函数
+        function factorial(n) {
+            if (n < 0) return NaN;
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+        
+        // 键盘支持
+        document.addEventListener('keydown', function(event) {
+            if (document.getElementById('calculator').classList.contains('active-tool')) {
+                const key = event.key;
+                
+                // 数字和基本运算符
+                if (/[0-9\.\+\-\*\/%\(\)=]/.test(key)) {
+                    event.preventDefault();
+                    if (key === '=' || key === 'Enter') {
+                        calculate();
+                    } else {
+                        appendToCalc(key);
+                    }
+                }
+                // 退格键
+                else if (key === 'Backspace') {
+                    event.preventDefault();
+                    backspaceCalc();
+                }
+                // 清除键
+                else if (key === 'Escape' || key === 'c' || key === 'C') {
+                    event.preventDefault();
+                    clearCalc();
+                }
+                // 科学函数快捷键
+                else if (key === 's' || key === 'S') {
+                    event.preventDefault();
+                    calculateFunction('Math.sin');
+                }
+                else if (key === 'c' || key === 'C') {
+                    event.preventDefault();
+                    calculateFunction('Math.cos');
+                }
+                else if (key === 't' || key === 'T') {
+                    event.preventDefault();
+                    calculateFunction('Math.tan');
+                }
+                else if (key === 'l' || key === 'L') {
+                    event.preventDefault();
+                    calculateFunction('Math.log');
+                }
+                else if (key === 'p' || key === 'P') {
+                    event.preventDefault();
+                    appendToCalc('Math.PI');
+                }
+                else if (key === 'e' || key === 'E') {
+                    event.preventDefault();
+                    appendToCalc('Math.E');
+                }
+                else if (key === '!') {
+                    event.preventDefault();
+                    calculateFunction('factorial');
+                }
+                else if (key === '^') {
+                    event.preventDefault();
+                    appendToCalc('**');
+                }
+            }
+        });
+        
+        // 秒表功能
+        let stopwatchInterval;
+        let stopwatchStartTime;
+        let stopwatchElapsed = 0;
+        let stopwatchRunning = false;
+        let lapCount = 0;
+        let lastLapTime = 0;
+        
+        function updateStopwatchDisplay() {
+            const totalMs = stopwatchElapsed + (stopwatchRunning ? Date.now() - stopwatchStartTime : 0);
+            const ms = totalMs % 1000;
+            const totalSeconds = Math.floor(totalMs / 1000);
+            const seconds = totalSeconds % 60;
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const minutes = totalMinutes % 60;
+            const hours = Math.floor(totalMinutes / 60);
+            
+            document.getElementById('stopwatch-display').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}${Math.floor(ms/10).toString().padStart(2, '0')}`;
+        }
+        
+        function startStopwatch() {
+            if (!stopwatchRunning) {
+                stopwatchStartTime = Date.now();
+                stopwatchRunning = true;
+                stopwatchInterval = setInterval(updateStopwatchDisplay, 10);
+            }
+        }
+        
+        function stopStopwatch() {
+            if (stopwatchRunning) {
+                stopwatchElapsed += Date.now() - stopwatchStartTime;
+                stopwatchRunning = false;
+                clearInterval(stopwatchInterval);
+            }
+        }
+        
+        function lapStopwatch() {
+            if (stopwatchRunning) {
+                const currentTime = stopwatchElapsed + (Date.now() - stopwatchStartTime);
+                const lapTime = currentTime - lastLapTime;
+                lastLapTime = currentTime;
+                lapCount++;
+                
+                document.getElementById('lap-count').textContent = `计次: ${lapCount}`;
+                
+                const lapTimesDiv = document.getElementById('lap-times');
+                const lapElement = document.createElement('div');
+                lapElement.textContent = `计次 ${lapCount}: ${formatLapTime(lapTime)}`;
+                lapTimesDiv.appendChild(lapElement);
+            }
+        }
+        
+        function resetStopwatch() {
+            stopStopwatch();
+            stopwatchElapsed = 0;
+            lapCount = 0;
+            lastLapTime = 0;
+            updateStopwatchDisplay();
+            document.getElementById('lap-count').textContent = '计次: 0';
+            document.getElementById('lap-times').innerHTML = '';
+        }
+        
+        function formatLapTime(ms) {
+            const seconds = Math.floor(ms / 1000) % 60;
+            const minutes = Math.floor(ms / 60000);
+            const milliseconds = ms % 1000;
+            return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+        }
+        
+        // 倒计时功能
+        let countdownInterval;
+        let countdownTime = 0;
+        let countdownRunning = false;
+        
+        function updateCountdownDisplay() {
+            const ms = countdownTime % 1000;
+            const totalSeconds = Math.floor(countdownTime / 1000);
+            const seconds = totalSeconds % 60;
+            const minutes = Math.floor(totalSeconds / 60);
+            
+            document.getElementById('countdown-display').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`;
+        }
+        
+        function startCountdown() {
+            if (!countdownRunning) {
+                const minutes = parseInt(document.getElementById('minutes-input').value) || 0;
+                const seconds = parseInt(document.getElementById('seconds-input').value) || 0;
+                const milliseconds = parseInt(document.getElementById('milliseconds-input').value) || 0;
+                
+                countdownTime = (minutes * 60 + seconds) * 1000 + milliseconds;
+                
+                if (countdownTime > 0) {
+                    countdownRunning = true;
+                    countdownInterval = setInterval(() => {
+                        countdownTime -= 10;
+                        updateCountdownDisplay();
+                        
+                        if (countdownTime <= 0) {
+                            clearInterval(countdownInterval);
+                            countdownRunning = false;
+                            countdownTime = 0;
+                            updateCountdownDisplay();
+                            alert('倒计时结束！');
+                        }
+                    }, 10);
+                }
+            }
+        }
+        
+        function pauseCountdown() {
+            if (countdownRunning) {
+                clearInterval(countdownInterval);
+                countdownRunning = false;
+            }
+        }
+        
+        function resetCountdown() {
+            pauseCountdown();
+            countdownTime = 0;
+            updateCountdownDisplay();
+            document.getElementById('minutes-input').value = '';
+            document.getElementById('seconds-input').value = '';
+            document.getElementById('milliseconds-input').value = '';
+        }
+        
+        // BPM测量功能
+        let tapTimes = [];
+        const bpmHistory = [];
+        
+        function tapBPM() {
+            const now = Date.now();
+            tapTimes.push(now);
+            
+            if (tapTimes.length > 1) {
+                const timeDifferences = [];
+                for (let i = 1; i < tapTimes.length; i++) {
+                    timeDifferences.push(tapTimes[i] - tapTimes[i - 1]);
+                }
+                
+                const averageDifference = timeDifferences.reduce((a, b) => a + b, 0) / timeDifferences.length;
+                const bpm = Math.round(60000 / averageDifference);
+                
+                document.getElementById('bpm-result').textContent = `${bpm} BPM`;
+                document.getElementById('tap-count').textContent = `点击次数: ${tapTimes.length}`;
+                
+                bpmHistory.push(bpm);
+            } else {
+                document.getElementById('tap-count').textContent = `点击次数: ${tapTimes.length}`;
+            }
+        }
+        
+        function resetBPM() {
+            tapTimes = [];
+            document.getElementById('bpm-result').textContent = '0 BPM';
+            document.getElementById('tap-count').textContent = '点击次数: 0';
+        }
+        
+        // 时间显示功能
+        function updateTimeDisplays() {
+            const now = new Date();
+            
+            // 本地时间
+            const localTime = now.toLocaleTimeString('zh-CN', {hour12: false});
+            const localMs = now.getMilliseconds();
+            document.getElementById('local-time').textContent = `${localTime}.${localMs.toString().padStart(3, '0')}`;
+            
+            // UTC时间
+            const utcHours = now.getUTCHours().toString().padStart(2, '0');
+            const utcMinutes = now.getUTCMinutes().toString().padStart(2, '0');
+            const utcSeconds = now.getUTCSeconds().toString().padStart(2, '0');
+            document.getElementById('utc-time').textContent = `${utcHours}:${utcMinutes}:${utcSeconds}.${localMs.toString().padStart(3, '0')}`;
+            
+            // 纽约时间 (UTC-5)
+            const nyTime = new Date(now.getTime() - 5 * 60 * 60 * 1000);
+            const nyHours = nyTime.getUTCHours().toString().padStart(2, '0');
+            const nyMinutes = nyTime.getUTCMinutes().toString().padStart(2, '0');
+            const nySeconds = nyTime.getUTCSeconds().toString().padStart(2, '0');
+            document.getElementById('ny-time').textContent = `${nyHours}:${nyMinutes}:${nySeconds}.${localMs.toString().padStart(3, '0')}`;
+            
+            // 伦敦时间 (UTC+0)
+            document.getElementById('london-time').textContent = `${utcHours}:${utcMinutes}:${utcSeconds}.${localMs.toString().padStart(3, '0')}`;
+            
+            // 东京时间 (UTC+9)
+            const tokyoTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+            const tokyoHours = tokyoTime.getUTCHours().toString().padStart(2, '0');
+            const tokyoMinutes = tokyoTime.getUTCMinutes().toString().padStart(2, '0');
+            const tokyoSeconds = tokyoTime.getUTCSeconds().toString().padStart(2, '0');
+            document.getElementById('tokyo-time').textContent = `${tokyoHours}:${tokyoMinutes}:${tokyoSeconds}.${localMs.toString().padStart(3, '0')}`;
+            
+            // 更新自定义时区
+            updateCustomTimezones();
+        }
+        
+        // 自定义时区功能
+        function addCustomTimezone() {
+            const timezoneInput = document.getElementById('timezone-input');
+            const timezoneValue = parseFloat(timezoneInput.value);
+            
+            if (!isNaN(timezoneValue) && timezoneValue >= -12 && timezoneValue <= 14) {
+                const customTimezones = document.getElementById('custom-timezones');
+                
+                // 检查是否已存在相同时区
+                const existing = customTimezones.querySelector(`[data-timezone="${timezoneValue}"]`);
+                if (existing) return;
+                
+                const timezoneBox = document.createElement('div');
+                timezoneBox.className = 'time-box';
+                timezoneBox.dataset.timezone = timezoneValue;
+                
+                const timezoneName = timezoneValue >= 0 ? `UTC+${timezoneValue}` : `UTC${timezoneValue}`;
+                timezoneBox.innerHTML = `
+                    <h3>${timezoneName}</h3>
+                    <div class="custom-time-display">--:--:--.---</div>
+                    <button onclick="removeCustomTimezone(this.parentElement, ${timezoneValue})">删除</button>
+                `;
+                
+                customTimezones.appendChild(timezoneBox);
+                timezoneInput.value = '';
+                
+                // 立即更新一次显示
+                updateCustomTimezone(timezoneBox, timezoneValue);
+            }
+        }
+        
+        function removeCustomTimezone(element, timezone) {
+            element.remove();
+        }
+        
+        function updateCustomTimezones() {
+            const customTimezones = document.getElementById('custom-timezones');
+            const timezoneBoxes = customTimezones.querySelectorAll('.time-box');
+            
+            timezoneBoxes.forEach(box => {
+                const timezone = parseFloat(box.dataset.timezone);
+                updateCustomTimezone(box, timezone);
+            });
+        }
+        
+        function updateCustomTimezone(element, timezone) {
+            const now = new Date();
+            const offsetMs = timezone * 60 * 60 * 1000;
+            const customTime = new Date(now.getTime() + offsetMs);
+            
+            const hours = customTime.getUTCHours().toString().padStart(2, '0');
+            const minutes = customTime.getUTCMinutes().toString().padStart(2, '0');
+            const seconds = customTime.getUTCSeconds().toString().padStart(2, '0');
+            const ms = now.getMilliseconds().toString().padStart(3, '0');
+            
+            element.querySelector('.custom-time-display').textContent = `${hours}:${minutes}:${seconds}.${ms}`;
+        }
+        
+        // 初始化
+        updateTimeDisplays();
+        setInterval(updateTimeDisplays, 1);
+    </script>
+</body>
+</html>

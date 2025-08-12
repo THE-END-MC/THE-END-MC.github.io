@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <style>
+    /* 原有样式保持不变 */
+    :root {
+      --bgcolor: #f5f5f5;
+      --btncolor: #4CAF50;
+      --textcolor: white;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bgcolor);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .captcha-container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 85%;
+      max-width: 320px;
+    }
+    #captcha-btn {
+      padding: 14px 24px;
+      background: var(--btncolor);
+      color: var(--textcolor);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 15px 0 0;
+      width: 100%;
+      min-height: 48px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    #captcha-btn:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+    #custom-content {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    #slider-container {
+      margin: 20px 0;
+      position: relative;
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+    }
+    #slider-progress {
+      position: absolute;
+      height: 100%;
+      width: 0%;
+      background: var(--btncolor);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    #slider-handle {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      background: white;
+      border: 2px solid var(--btncolor);
+      border-radius: 50%;
+      cursor: grab;
+      z-index: 2;
+    }
+    @media (max-width: 480px) {
+      .captcha-container {
+        padding: 16px;
+      }
+      #captcha-btn {
+        padding: 12px 20px;
+        font-size: 15px;
+        min-height: 44px;
+      }
+      #custom-content {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="captcha-container">
+    <div id="custom-content"></div>
+    
+    <!-- 移动端滑块验证 -->
+    <div id="slider-container">
+      <div id="slider-progress"></div>
+      <div id="slider-handle"></div>
+    </div>
+    
+    <!-- PC端按钮验证 -->
+    <button id="captcha-btn"></button>
+  </div>
+
+  <script>
+    // 多语言文本库
+    const translations = {
+      en: {
+        title: "Please verify you're human",
+        button: "I'm not a robot",
+        verifying: "Verifying...",
+        verifying_mouse: "Verifying, please move your mouse",
+        success: "✓ Verification passed",
+        fail: "✗ Verification failed",
+        slider_instruction: "Slide to verify"
+      },
+      zh: {
+        title: "请验证您是人类",
+        button: "我不是机器人",
+        verifying: "验证中...",
+        verifying_mouse: "验证中，请稍微移动鼠标",
+        success: "✓ 验证通过",
+        fail: "✗ 验证失败",
+        slider_instruction: "滑动验证"
+      },
+      ja: {
+        title: "人間であることを確認してください",
+        button: "私はロボットではありません",
+        verifying: "確認中...",
+        verifying_mouse: "確認中、マウスを動かしてください",
+        success: "✓ 確認完了",
+        fail: "✗ 確認失敗",
+        slider_instruction: "スライドして確認"
+      },
+      ko: {
+        title: "인간임을 확인하세요",
+        button: "나는 로봇이 아닙니다",
+        verifying: "확인 중...",
+        verifying_mouse: "확인 중, 마우스를 움직여 주세요",
+        success: "✓ 확인 완료",
+        fail: "✗ 확인 실패",
+        slider_instruction: "슬라이드하여 확인"
+      }
+    };
+
+    // 从URL参数获取自定义设置和语言
+    const params = new URLSearchParams(window.location.search);
+    document.body.style.setProperty('--bgcolor', params.get('bgcolor') || '#f5f5f5');
+    document.body.style.setProperty('--btncolor', params.get('btncolor') || '#4CAF50');
+    document.body.style.setProperty('--textcolor', params.get('textcolor') || 'white');
+    
+    // 确定语言 (优先使用URL参数，其次浏览器语言，默认中文)
+    let lang = params.get('lang') || navigator.language.split('-')[0] || 'zh';
+    if (!translations[lang]) lang = 'zh'; // 默认中文
+    
+    // 设置文本内容
+    const text = translations[lang];
+    document.getElementById('custom-content').textContent = 
+      params.get('content') ? decodeURIComponent(params.get('content')) : text.title;
+    
+    // 设备检测
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const sliderContainer = document.getElementById('slider-container');
+    const sliderHandle = document.getElementById('slider-handle');
+    const sliderProgress = document.getElementById('slider-progress');
+    const captchaBtn = document.getElementById('captcha-btn');
+    
+    // 初始化按钮文本
+    captchaBtn.textContent = text.button;
+
+    // 根据设备显示不同验证方式
+    if (isMobile) {
+      captchaBtn.style.display = 'none';
+      document.getElementById('custom-content').textContent = text.slider_instruction;
+      initSliderCaptcha();
+    } else {
+      sliderContainer.style.display = 'none';
+      initButtonCaptcha();
+    }
+
+    // 移动端滑块验证
+    function initSliderCaptcha() {
+      let isDragging = false;
+      let startX = 0;
+      let sliderWidth = sliderContainer.offsetWidth;
+      let handleWidth = sliderHandle.offsetWidth;
+
+      // 触摸开始
+      sliderHandle.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].clientX - sliderHandle.offsetLeft;
+        sliderHandle.style.transition = 'none';
+        e.preventDefault();
+      });
+
+      // 触摸移动
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const x = e.touches[0].clientX - startX;
+        const maxX = sliderWidth - handleWidth/2;
+        const progressX = Math.max(0, Math.min(x, maxX));
+        
+        sliderHandle.style.left = progressX + 'px';
+        sliderProgress.style.width = (progressX / maxX * 100) + '%';
+        
+        // 验证通过
+        if (progressX >= maxX - 5) {
+          completeVerification();
+        }
+        e.preventDefault();
+      });
+
+      // 触摸结束
+      document.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        sliderHandle.style.transition = 'left 0.3s';
+        
+        // 如果没有验证成功，滑块返回起始位置
+        if (parseInt(sliderHandle.style.left) < sliderWidth - handleWidth - 5) {
+          sliderHandle.style.left = '0';
+          sliderProgress.style.width = '0';
+        }
+      });
+    }
+
+    // PC端按钮验证
+    function initButtonCaptcha() {
+      let interactionCount = 0;
+      const handleInteraction = () => interactionCount++;
+      
+      captchaBtn.addEventListener('click', function() {
+        this.disabled = true;
+        this.textContent = text.verifying_mouse;
+        
+        document.addEventListener('mousemove', handleInteraction);
+        
+        setTimeout(() => {
+          document.removeEventListener('mousemove', handleInteraction);
+          
+          if (interactionCount > 3) {
+            completeVerification();
+          } else {
+            this.textContent = text.fail;
+            this.disabled = false;
+            interactionCount = 0;
+          }
+        }, 1000);
+      });
+    }
+
+    // 验证通过
+    function completeVerification() {
+      document.querySelector('.captcha-container').innerHTML = `
+        <div style="padding:20px; color:#4CAF50; font-weight:bold">
+          ${text.success}
+        </div>
+      `;
+      window.parent.postMessage('captcha-verified', '*');
+    }
+  </script>
+</body>
+</html>

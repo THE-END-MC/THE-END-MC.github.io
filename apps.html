@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>产品中心</title>
+    <style type="text/css">
+        body {
+            background-color: #2a2d3e;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .icon {
+            width: 100%;
+            height: 150px;
+            background-color: #3a2d3e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        /* 新增的下载站样式 */
+        .download-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .filter-container {
+            background-color: #3a3d4e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: #4a4d5e;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .filter-btn.active {
+            background-color: #4CAF50;
+        }
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .app-card {
+            background-color: #3a3d4e;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+        .app-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+        .app-content {
+            padding: 15px;
+        }
+        .app-title {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .app-description {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        .app-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status-available {
+            background-color: #4CAF50;
+        }
+        .status-reservation {
+            background-color: #FF9800;
+        }
+        .status-offline {
+            background-color: #F44336;
+        }
+        .app-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .download-btn, .reserve-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+        }
+        .download-btn {
+            background-color: #4CAF50;
+        }
+        .download-btn:hover {
+            background-color: #3e8e41;
+        }
+        .reserve-btn {
+            background-color: #FF9800;
+        }
+        .reserve-btn:hover {
+            background-color: #e68a00;
+        }
+        .disabled-btn {
+            background-color: #666 !important;
+            cursor: not-allowed;
+        }
+        .search-box {
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            background-color: #4a4d5e;
+            color: white;
+        }
+        .marquee {
+            margin-top: 10px;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div style="display:flex;justify-content:center">
+        <nav style="display:flex;gap:15px;padding:20px">
+            <a href="home.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">首页</a>
+            <a href="about.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">关于</a>
+            <a href="charts.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">我的铺面</a>
+            <a href="server.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">服务器</a>
+        </nav>
+    </div>
+    <div class="icon">
+        <img src="icon.avif" width="100" height="100" />
+        <div class="marquee">
+            <marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong></marquee>
+        </div>
+    </div>
+    <big><big>产品列表，打不开请使用加速器</big></big>
+<div id="tableContainer">
+  <style>
+    #searchTable { margin-bottom: 10px; padding: 5px; width: 100% }
+    #dataTable { width: 100%; border-collapse: collapse; margin: 10px 0 }
+    #dataTable th, #dataTable td { border: 1px solid #ddd; padding: 8px }
+    #dataTable th { background: #f2f2f2; cursor: pointer }
+    .pagination { display: flex; gap: 5px; margin-top: 10px }
+    .pagination a { padding: 5px 10px; border: 1px solid #ddd; text-decoration: none }
+    .pagination a.active { background: #4CAF50; color: #fff }
+  </style>
+  <input id="searchTable" placeholder="搜索...">
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th><p style="color: black;">产品名称</p></th>
+        <th><p style="color: black;">下载链接</p></th>
+        <th><p style="color: black;">官网</p></th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td>Te:PhiPlayer</td><td>未上架</td><td>无</td></tr>
+      <tr><td>Te:PhiEdit</td><td>已下架</td><td>无</td></tr>
+      <tr><td>TLang</td><td><a href="https://github.com/THE-END-MC/Tlang/releases/download/TL/TLangSetup.exe">下载</a></td><td>tlang.html</td></tr>
+      <tr><td>Te:PhiEdit2</td><td>未上架</td><td>无</td></tr>
+      <tr><td>T3E7服务器</td><td>Minecraft服务器</td><td><a href="server.html">访问</a></td></tr>
+    </tbody>
+  </table>
+  <div id="pagination" class="pagination"></div>
+  <script>
+    const data = [
+      ["Te:PhiPlayer", "未上架", "无"],
+      ["Te:PhiEdit", "已下架", "无"],
+      ["TLang", '<a href="https://github.com/THE-END-MC/Tlang/releases/download/TL/TLangSetup.exe">下载</a>', '<a href="tlang.html">访问</a>'],
+      ["Te:PhiEdit2", "未上架", "无"],
+      ["T3E7服务器", "Minecraft服务器", '<a href="server.html">访问</a>']
+    ];
+    
+    let currentPage = 1;
+    const rowsPerPage = 10;
+    
+    function displayTable(page = 1) {
+      currentPage = page;
+      const searchTerm = document.getElementById("searchTable").value.toLowerCase();
+      const filteredData = data.filter(row => 
+        row.some(cell => String(cell).toLowerCase().includes(searchTerm))
+      );
+      
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const paginatedData = filteredData.slice(start, end);
+      
+      document.getElementById("tableBody").innerHTML = paginatedData
+        .map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`)
+        .join("");
+      
+      const pageCount = Math.ceil(filteredData.length / rowsPerPage);
+      document.getElementById("pagination").innerHTML = Array
+        .from({length: pageCount}, (_, i) => 
+          `<a href="#" ${i + 1 === currentPage ? 'class="active"' : ''}>${i + 1}</a>`
+        )
+        .join("");
+      
+      document.querySelectorAll("#pagination a").forEach(link => {
+        link.onclick = e => {
+          e.preventDefault();
+          displayTable(parseInt(e.target.textContent));
+        };
+      });
+    }
+    
+    document.getElementById("searchTable").addEventListener("input", () => {
+      displayTable(1);
+    });
+    
+    displayTable();
+  </script>
+</div>
+</body>
+</html>

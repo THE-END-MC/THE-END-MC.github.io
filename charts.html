@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>THE_END铺面合集</title>
+    <style>
+        body {
+            background-color: #2a2d3e;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .filters {
+            background-color: #3a3d4e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            margin-bottom: 15px;
+        }
+        .search-box input {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .filter-buttons button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-buttons button:hover {
+            background-color: #3e8e41;
+        }
+        .filter-buttons button.active {
+            background-color: #2E7D32;
+            font-weight: bold;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .file-item {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .file-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .file-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .file-info {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .download-btn:hover {
+            background-color: #3e8e41;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .pagination button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2em;
+            color: #ff6b6b;
+        }
+        .tip-marquee {
+            width: 100%;
+            height: 150px;
+            background-color: #3a2d3e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tip-marquee font {
+            font-size: 1.2em;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            border-bottom: 4px solid #2E7D32;
+            position: relative;
+            transition: all 0.1s;
+            margin: 0 8px;
+        }
+        .nav-link:hover {
+            background-color: #3e8e41;
+            border-bottom-width: 2px;
+            transform: translateY(2px);
+        }
+        .nav-link:active {
+            border-bottom-width: 0;
+            transform: translateY(4px);
+        }
+        .category-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .category-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #3a3d4e;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .category-tab.active {
+            background-color: #4CAF50;
+            font-weight: bold;
+        }
+        .page-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="nav-container">
+                <a href="home.html" class="nav-link">首页</a>
+                <a href="about.html" class="nav-link">关于</a>
+                <a href="charts.html" class="nav-link">我的谱面</a>
+                <a href="server.html" class="nav-link">服务器</a>
+            </div>
+            <div class="tip-marquee">
+                <font color="yellow"><marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong></marquee></font>
+            </div>
+            <h1>THE_END铺面合集</h1>
+            <p>包含未公布铺面和半成品</p>
+        </div>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索铺面名称..." autocomplete="off">
+            </div>
+            <div class="filter-group">
+                <label>谱面分类</label>
+                <div class="category-tabs">
+                    <div class="category-tab active" data-category="all">全部</div>
+                    <div class="category-tab" data-category="normal">常规谱面</div>
+                    <div class="category-tab" data-category="notnormal">不常规谱面</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="file-grid" id="charts-grid">
+                <!-- 谱面将通过JavaScript动态加载 -->
+            </div>
+            <div class="no-data" id="no-data" style="display: none;">
+                没有找到匹配的谱面
+            </div>
+            <div class="pagination" id="pagination">
+                <button id="prev-page" disabled>上一页</button>
+                <button id="next-page">下一页</button>
+            </div>
+            <div class="page-info" id="page-info">第1页</div>
+        </div>
+    </div>
+
+    <script>
+        // 配置信息
+        const config = {
+            owner: "THE-END-MC",
+            repo: "TCDCharts",
+            branch: "main",
+            basePath: "TECharts",
+            itemsPerPage: 10
+        };
+
+        // 全局数据存储
+        const appData = {
+            allCharts: [],
+            filteredCharts: [],
+            currentPage: 1,
+            currentCategory: "all",
+            searchTerm: ""
+        };
+
+        // 获取目录内容
+        async function fetchCharts() {
+            try {
+                // 获取常规谱面
+                const normalCharts = await fetchDirectoryContents("NormalCharts");
+                // 获取不常规谱面
+                const notNormalCharts = await fetchDirectoryContents("NotNormalChart");
+                
+                // 合并数据并添加分类标识
+                appData.allCharts = [
+                    ...normalCharts.map(item => ({ ...item, category: "normal" })),
+                    ...notNormalCharts.map(item => ({ ...item, category: "notnormal" }))
+                ];
+                
+                updateFilteredCharts();
+                renderCharts();
+            } catch (error) {
+                console.error("获取谱面数据失败:", error);
+                document.getElementById("no-data").style.display = "block";
+                document.getElementById("no-data").textContent = "加载谱面数据失败，请刷新重试";
+            }
+        }
+
+        // 获取目录内容
+        async function fetchDirectoryContents(path) {
+            const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.basePath}/${path}`;
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return Array.isArray(data) ? data : [];
+            } catch (error) {
+                console.error(`获取 ${path} 目录内容失败:`, error);
+                return [];
+            }
+        }
+
+        // 更新过滤后的谱面数据
+        function updateFilteredCharts() {
+            // 根据分类过滤
+            let filtered = appData.allCharts;
+            if (appData.currentCategory !== "all") {
+                filtered = filtered.filter(item => item.category === appData.currentCategory);
+            }
+            
+            // 根据搜索词过滤
+            if (appData.searchTerm) {
+                const searchTerm = appData.searchTerm.toLowerCase();
+                filtered = filtered.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            appData.filteredCharts = filtered;
+            appData.currentPage = 1; // 重置到第一页
+        }
+
+        // 渲染谱面
+        function renderCharts() {
+            const grid = document.getElementById("charts-grid");
+            const noData = document.getElementById("no-data");
+            const pageInfo = document.getElementById("page-info");
+            
+            // 计算分页数据
+            const start = (appData.currentPage - 1) * config.itemsPerPage;
+            const end = start + config.itemsPerPage;
+            const paginatedCharts = appData.filteredCharts.slice(start, end);
+            const totalPages = Math.ceil(appData.filteredCharts.length / config.itemsPerPage);
+            
+            // 清空现有内容
+            grid.innerHTML = "";
+            
+            // 显示/隐藏无数据提示
+            if (paginatedCharts.length === 0) {
+                noData.style.display = "block";
+            } else {
+                noData.style.display = "none";
+            }
+            
+            // 渲染谱面卡片
+            paginatedCharts.forEach(item => {
+                const downloadUrl = `https://github.com/${config.owner}/${config.repo}/raw/${config.branch}/${config.basePath}/${item.category === "normal" ? "NormalCharts" : "NotNormalChart"}/${item.name}`;
+                
+                const fileItem = document.createElement("div");
+                fileItem.className = "file-item";
+                fileItem.innerHTML = `
+                    <div class="file-name">${item.name}</div>
+                    <div class="file-info">${item.category === "normal" ? "常规谱面" : "不常规谱面"}</div>
+                    <a href="${downloadUrl}" class="download-btn" download="${item.name}">下载</a>
+                `;
+                grid.appendChild(fileItem);
+            });
+            
+            // 更新分页按钮状态
+            document.getElementById("prev-page").disabled = appData.currentPage <= 1;
+            document.getElementById("next-page").disabled = appData.currentPage >= totalPages;
+            
+            // 更新页面信息
+            const totalItems = appData.filteredCharts.length;
+            const startItem = start + 1;
+            const endItem = Math.min(end, totalItems);
+            pageInfo.textContent = `显示 ${startItem}-${endItem} 条，共 ${totalItems} 条 (第 ${appData.currentPage}/${totalPages} 页)`;
+        }
+
+        // 初始化事件监听
+        function initEventListeners() {
+            // 搜索框输入事件
+            document.getElementById("search-input").addEventListener("input", (e) => {
+                appData.searchTerm = e.target.value;
+                updateFilteredCharts();
+                renderCharts();
+            });
+            
+            // 分类标签点击事件
+            document.querySelectorAll(".category-tab").forEach(tab => {
+                tab.addEventListener("click", () => {
+                    document.querySelector(".category-tab.active").classList.remove("active");
+                    tab.classList.add("active");
+                    appData.currentCategory = tab.dataset.category;
+                    updateFilteredCharts();
+                    renderCharts();
+                });
+            });
+            
+            // 分页按钮事件
+            document.getElementById("prev-page").addEventListener("click", () => {
+                if (appData.currentPage > 1) {
+                    appData.currentPage--;
+                    renderCharts();
+                }
+            });
+            
+            document.getElementById("next-page").addEventListener("click", () => {
+                const totalPages = Math.ceil(appData.filteredCharts.length / config.itemsPerPage);
+                if (appData.currentPage < totalPages) {
+                    appData.currentPage++;
+                    renderCharts();
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener("DOMContentLoaded", () => {
+            initEventListeners();
+            fetchCharts();
+        });
+    </script>
+</body>
+</html>
