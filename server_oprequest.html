@@ -48,6 +48,21 @@
 				display: inline-block;
 				margin: 15px 0;
 			}
+			.warning {
+				color: #ff6b6b;
+				font-weight: bold;
+				margin: 15px 0;
+				max-width: 600px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			#reason {
+				width: 300px;
+				height: 80px;
+				margin: 10px;
+				padding: 5px;
+				font-size: 16px;
+			}
 		</style>
 	</head>
 	<body>
@@ -58,29 +73,38 @@
 		    </div>
 		<p>请确保您订阅了频道</p><a href="https://www.youtube.com/channel/UCbAQhWCCpxHYH2LYihujbIA">这个频道</a>
 		<br>
+		<div class="warning">
+			⚠️ 重要提示：OP权限是用于服务器管理的，请勿随意申请。<br>
+			只有真正需要管理服务器、愿意承担责任的人才能申请，闹着玩的请不要申请！
+		</div>
 		<input type="text" id="playername" name="playername" placeholder="请输入玩家名："><br>
 		<input type="email" id="email" name="email" placeholder="已经订阅频道的Google邮箱："><br>
+		<textarea id="reason" name="reason" placeholder="申请理由（可选）"></textarea><br>
 		
 		<big>请复制以下文本到邮箱：3866039383@qq.com</big><br>
-		<div id="requestText">OP Requests <span id="displayName">[你的玩家名]</span> <span id="displayEmail">[你已经订阅频道的Google邮箱]</span></div>
+		<div id="requestText">OP Requests <span id="displayName">[你的玩家名]</span> <span id="displayEmail">[你已经订阅频道的Google邮箱]</span> <span id="displayReason">[申请理由]</span></div>
 		<button id="copyBtn">复制申请文本</button>
 		
 		<script>
 			// 获取输入元素和显示元素
 			const playerNameInput = document.getElementById('playername');
 			const emailInput = document.getElementById('email');
+			const reasonInput = document.getElementById('reason');
 			const displayName = document.getElementById('displayName');
 			const displayEmail = document.getElementById('displayEmail');
+			const displayReason = document.getElementById('displayReason');
 			const copyBtn = document.getElementById('copyBtn');
 			const requestText = document.getElementById('requestText');
 			
 			// 实时更新显示文本
 			playerNameInput.addEventListener('input', updateDisplay);
 			emailInput.addEventListener('input', updateDisplay);
+			reasonInput.addEventListener('input', updateDisplay);
 			
 			function updateDisplay() {
 				displayName.textContent = playerNameInput.value || '[你的玩家名]';
 				displayEmail.textContent = emailInput.value || '[你已经订阅频道的Google邮箱]';
+				displayReason.textContent = reasonInput.value ? `理由: ${reasonInput.value}` : '';
 			}
 			
 			// 复制功能
