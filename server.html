@@ -114,7 +114,7 @@
 		<div class="navigation">
 			<a href="home.html" class="nav-link">首页</a>
 			<a href="about.html" class="nav-link">关于</a>
-			<a href="charts.html" class="nav-link">我的铺面</a>
+			<a href="charts.html" class="nav-link">我的谱面</a>
 			<a href="server.html" class="nav-link">服务器</a>
 		</div>
 		
@@ -143,7 +143,7 @@
 				<div class="server-status" id="server2-status">
 					<div>
 						<h3>备用服务器</h3>
-						<p>地址: 156.238.254.146:37605 <button class="copy-btn" onclick="navigator.clipboard.writeText('156.238.254.146:37605')">复制</button></p>
+						<p>地址: 141.11.77.51:2999 <button class="copy-btn" onclick="navigator.clipboard.writeText('141.11.77.51:2999')">复制</button></p>
 						<p>状态: <span class="loading">检测中...</span></p>
 						<p class="player-count">玩家: -/-</p>
 						<p>延迟: - ms</p>
@@ -213,7 +213,7 @@
 			// 检测所有服务器并标记推荐服务器
 			async function checkAllServers() {
 				const server1 = "45.192.98.216:56057";
-				const server2 = "156.238.254.146:37605";
+				const server2 = "141.11.77.51:2999";
 				
 				const [status1, status2] = await Promise.all([
 					checkServerStatus(server1, "server1-status", "server1-icon"),
@@ -243,6 +243,7 @@
 	</body>
 
 </html>
+
 
 
 
