@@ -132,7 +132,7 @@
 				<div class="server-status" id="server1-status">
 					<div>
 						<h3>主服务器</h3>
-						<p>地址: 45.192.98.216:56057 <button class="copy-btn" onclick="navigator.clipboard.writeText('45.192.98.216:56057')">复制</button></p><
+						<p>地址: omt.rainplay.cn:22060 <button class="copy-btn" onclick="navigator.clipboard.writeText('omt.rainplay.cn:22060')">复制</button></p><
 						<p>状态: <span class="loading">检测中...</span></p>
 						<p class="player-count">玩家: -/-</p>
 						<p>延迟: - ms</p>
@@ -212,7 +212,7 @@
 			
 			// 检测所有服务器并标记推荐服务器
 			async function checkAllServers() {
-				const server1 = "45.192.98.216:56057";
+				const server1 = "omt.rainplay.cn:22060";
 				const server2 = "141.11.77.51:2999";
 				
 				const [status1, status2] = await Promise.all([
@@ -243,6 +243,7 @@
 	</body>
 
 </html>
+
 
 
 
