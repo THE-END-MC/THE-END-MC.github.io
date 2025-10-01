@@ -132,7 +132,7 @@
 				<div class="server-status" id="server1-status">
 					<div>
 						<h3>主服务器</h3>
-						<p>地址: omt.rainplay.cn:22060 <button class="copy-btn" onclick="navigator.clipboard.writeText('omt.rainplay.cn:22060')">复制</button></p><
+						<p>地址: t3e7play.rensen.site:22060<button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7play.rensen.site:22060')">复制</button></p><
 						<p>状态: <span class="loading">检测中...</span></p>
 						<p class="player-count">玩家: -/-</p>
 						<p>延迟: - ms</p>
@@ -143,7 +143,7 @@
 				<div class="server-status" id="server2-status">
 					<div>
 						<h3>备用服务器</h3>
-						<p>地址: 141.11.77.51:2999 <button class="copy-btn" onclick="navigator.clipboard.writeText('141.11.77.51:2999')">复制</button></p>
+						<p>地址: omt.rainplay.cn:22060 <button class="copy-btn" onclick="navigator.clipboard.writeText('omt.rainplay.cn:22060')">复制</button></p>
 						<p>状态: <span class="loading">检测中...</span></p>
 						<p class="player-count">玩家: -/-</p>
 						<p>延迟: - ms</p>
@@ -212,8 +212,8 @@
 			
 			// 检测所有服务器并标记推荐服务器
 			async function checkAllServers() {
-				const server1 = "omt.rainplay.cn:22060";
-				const server2 = "141.11.77.51:2999";
+				const server1 = "t3e7play.rensen.site:22060";
+				const server2 = "omt.rainplay.cn:22060";
 				
 				const [status1, status2] = await Promise.all([
 					checkServerStatus(server1, "server1-status", "server1-icon"),
@@ -243,6 +243,7 @@
 	</body>
 
 </html>
+
 
 
 
