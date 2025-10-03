@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>产品中心</title>
+    <title>Apps</title>
     <style type="text/css">
         body {
             background-color: #2a2d3e;
@@ -20,7 +20,6 @@
             align-items: center;
             justify-content: center;
         }
-        /* 新增的下载站样式 */
         .download-container {
             max-width: 1200px;
             margin: 20px auto;
@@ -150,20 +149,26 @@
     </style>
 </head>
 <body>
-    <div style="display:flex;justify-content:center">
-        <nav style="display:flex;gap:15px;padding:20px">
-            <a href="home.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">首页</a>
-            <a href="about.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">关于</a>
-            <a href="charts.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">我的铺面</a>
-            <a href="server.html" style="text-decoration:none;color:#fff;padding:12px 24px;border-radius:8px;background-color:#4CAF50;border-bottom:4px solid #2E7D32;position:relative;transition:all 0.1s" onmouseover="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'" onmouseout="this.style.backgroundColor='#4CAF50';this.style.borderBottomWidth='4px';this.style.transform='translateY(0)'" onmousedown="this.style.borderBottomWidth='0';this.style.transform='translateY(4px)'" onmouseup="this.style.backgroundColor='#3e8e41';this.style.borderBottomWidth='2px';this.style.transform='translateY(2px)'">服务器</a>
-        </nav>
+    <div style="background:linear-gradient(135deg, #1e212e 0%, #2a2d3e 100%);box-shadow:0 4px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:1000;padding:0 20px;border-bottom:1px solid #40455a">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px">
+    <!-- Logo -->
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;color:#fff;font-weight:bold;font-size:1.5rem">
+      <div style="width:40px;height:40px;margin-right:10px;background:linear-gradient(45deg, #667eea, #764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:bold">T</div>
+      THE_END_MC's Website
+    </a>
+    <div style="display:flex;gap:30px">
+      <a href="home.html" style="text-decoration:none;color:#fff;font-weight:500;padding:8px 16px;border-radius:6px;background:linear-gradient(45deg, #667eea, #764ba2)">Home</a>
+      <a href="about.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">About</a>
+      <a href="server.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">Minecraft Server</a>
+      <a href="apps.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">Apps</a>
+      <a href="charts.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">My MUG Charts</a>
     </div>
+  </div>
+</div>
     <div class="icon">
-        <div class="marquee">
-            <marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong></marquee>
-        </div>
+        <font color="yellow"><marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong>                        <br>Tip: <strong>We don't have any Chinese websites. Any site claiming to be our Chinese website is fake. Please carefully verify and distinguish them.</strong></marquee></font>
     </div>
-    <big><big>产品列表，打不开请使用加速器</big></big>
+    <big><big>Apps list</big></big>
 <div id="tableContainer">
   <style>
     #searchTable { margin-bottom: 10px; padding: 5px; width: 100% }
@@ -174,31 +179,23 @@
     .pagination a { padding: 5px 10px; border: 1px solid #ddd; text-decoration: none }
     .pagination a.active { background: #4CAF50; color: #fff }
   </style>
-  <input id="searchTable" placeholder="搜索...">
+  <input id="searchTable" placeholder="Search...">
   <table id="dataTable">
     <thead>
       <tr>
-        <th><p style="color: black;">产品名称</p></th>
-        <th><p style="color: black;">下载链接</p></th>
-        <th><p style="color: black;">官网</p></th>
+        <th><p style="color: black;">Name</p></th>
+        <th><p style="color: black;">Download</p></th>
+        <th><p style="color: black;">Website</p></th>
       </tr>
     </thead>
     <tbody id="tableBody">
-      <tr><td>Te:PhiPlayer</td><td><a href="TePhiPlayer">点击使用</a></td><td>无</td></tr>
-      <tr><td>Te:PhiEdit</td><td>已下架</td><td>无</td></tr>
-      <tr><td>TLang</td><td><a href="https://github.com/THE-END-MC/Tlang/releases/download/TL/TLangSetup.exe">下载</a></td><td>https://github.com/THE-END-MC/Tlang</td></tr>
-      <tr><td>Te:PhiEdit2</td><td>未上架</td><td>无</td></tr>
-      <tr><td>T3E7服务器</td><td>Minecraft服务器</td><td><a href="server.html">访问</a></td></tr>
     </tbody>
   </table>
   <div id="pagination" class="pagination"></div>
   <script>
     const data = [
-      ["Te:PhiPlayer", '<a href="TePhiPlayer">点我使用</a>', "无"],
-      ["Te:PhiEdit", "已下架", "无"],
-      ["TLang", '<a href="https://github.com/THE-END-MC/Tlang/releases/download/TL/TLangSetup.exe">下载</a>', '<a href="https://github.com/THE-END-MC/Tlang">访问</a>'],
-      ["Te:PhiEdit2", "未上架", "无"],
-      ["T3E7服务器", "Minecraft服务器", '<a href="server.html">访问</a>']
+      ["Te:PhiPlayer", '<a href="TePhiPlayer">Touch use</a>', ""],
+      ["T3E7", "Minecraft Server", '<a href="server.html">Go to</a>']
     ];
     
     let currentPage = 1;
