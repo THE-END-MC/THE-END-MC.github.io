@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>THE_END谱面合集</title>
+    <title>THE_END_MC MUG Charts</title>
     <style>
         body {
             background-color: #2a2d3e;
@@ -192,52 +192,57 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="nav-container">
-                <a href="home.html" class="nav-link">首页</a>
-                <a href="about.html" class="nav-link">关于</a>
-                <a href="charts.html" class="nav-link">我的谱面</a>
-                <a href="server.html" class="nav-link">服务器</a>
-            </div>
+    <div style="background:linear-gradient(135deg, #1e212e 0%, #2a2d3e 100%);box-shadow:0 4px 20px rgba(0,0,0,0.3);position:sticky;top:0;z-index:1000;padding:0 20px;border-bottom:1px solid #40455a">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px">
+    <!-- Logo -->
+    <a href="/" style="display:flex;align-items:center;text-decoration:none;color:#fff;font-weight:bold;font-size:1.5rem">
+      <div style="width:40px;height:40px;margin-right:10px;background:linear-gradient(45deg, #667eea, #764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:bold">T</div>
+      THE_END_MC's Website
+    </a>
+    <div style="display:flex;gap:30px">
+      <a href="home.html" style="text-decoration:none;color:#fff;font-weight:500;padding:8px 16px;border-radius:6px;background:linear-gradient(45deg, #667eea, #764ba2)">Home</a>
+      <a href="about.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">About</a>
+      <a href="server.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">Minecraft Server</a>
+      <a href="apps.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">Apps</a>
+      <a href="charts.html" style="text-decoration:none;color:#b8bbc8;font-weight:500;padding:8px 16px;border-radius:6px;transition:all 0.3s ease" onmouseover="this.style.color='#fff';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.color='#b8bbc8';this.style.background='transparent'">My MUG Charts</a>
+    </div>
+  </div>
+</div>
             <div class="tip-marquee">
-                <font color="yellow"><marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong></marquee></font>
+                <font color="yellow"><marquee>Tip: <strong>我们没有什么中文网，任何自称中文网的都是假网站，请仔细甄别</strong>                        <br>Tip: <strong>We don't have any Chinese websites. Any site claiming to be our Chinese website is fake. Please carefully verify and distinguish them.</strong></marquee></font>
             </div>
-            <h1>THE_END谱面合集</h1>
-            <p>包含未公布铺面和半成品</p>
+            <h1>THE_END Charts</h1>
         </div>
 
         <div class="filters">
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="搜索铺面名称..." autocomplete="off">
+                <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
             </div>
             <div class="filter-group">
-                <label>谱面分类</label>
+                <label>Chart Category</label>
                 <div class="category-tabs">
-                    <div class="category-tab active" data-category="all">全部</div>
-                    <div class="category-tab" data-category="normal">常规谱面</div>
-                    <div class="category-tab" data-category="notnormal">不常规谱面</div>
+                    <div class="category-tab active" data-category="all">ALL</div>
+                    <div class="category-tab" data-category="normal">NORMAL</div>
+                    <div class="category-tab" data-category="notnormal">NOT NORMAL</div>
                 </div>
             </div>
         </div>
 
         <div class="results">
             <div class="file-grid" id="charts-grid">
-                <!-- 谱面将通过JavaScript动态加载 -->
             </div>
             <div class="no-data" id="no-data" style="display: none;">
-                没有找到匹配的谱面，如果你在中国大陆访问，请使用Watt toolkit或其他加速器
+                No Data
             </div>
             <div class="pagination" id="pagination">
-                <button id="prev-page" disabled>上一页</button>
-                <button id="next-page">下一页</button>
+                <button id="prev-page" disabled>Back</button>
+                <button id="next-page">Next</button>
             </div>
-            <div class="page-info" id="page-info">第1页</div>
+            <div class="page-info" id="page-info">Page 1</div>
         </div>
     </div>
 
     <script>
-        // 配置信息
         const config = {
             owner: "THE-END-MC",
             repo: "TCDCharts",
@@ -246,7 +251,6 @@
             itemsPerPage: 10
         };
 
-        // 全局数据存储
         const appData = {
             allCharts: [],
             filteredCharts: [],
@@ -255,15 +259,11 @@
             searchTerm: ""
         };
 
-        // 获取目录内容
         async function fetchCharts() {
             try {
-                // 获取常规谱面
                 const normalCharts = await fetchDirectoryContents("NormalCharts");
-                // 获取不常规谱面
                 const notNormalCharts = await fetchDirectoryContents("NotNormalChart");
                 
-                // 合并数据并添加分类标识
                 appData.allCharts = [
                     ...normalCharts.map(item => ({ ...item, category: "normal" })),
                     ...notNormalCharts.map(item => ({ ...item, category: "notnormal" }))
@@ -272,13 +272,11 @@
                 updateFilteredCharts();
                 renderCharts();
             } catch (error) {
-                console.error("获取谱面数据失败:", error);
                 document.getElementById("no-data").style.display = "block";
-                document.getElementById("no-data").textContent = "加载谱面数据失败，请刷新重试";
+                document.getElementById("no-data").textContent = "ERROR";
             }
         }
 
-        // 获取目录内容
         async function fetchDirectoryContents(path) {
             const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.basePath}/${path}`;
             try {
@@ -289,20 +287,16 @@
                 const data = await response.json();
                 return Array.isArray(data) ? data : [];
             } catch (error) {
-                console.error(`获取 ${path} 目录内容失败:`, error);
                 return [];
             }
         }
 
-        // 更新过滤后的谱面数据
         function updateFilteredCharts() {
-            // 根据分类过滤
             let filtered = appData.allCharts;
             if (appData.currentCategory !== "all") {
                 filtered = filtered.filter(item => item.category === appData.currentCategory);
             }
             
-            // 根据搜索词过滤
             if (appData.searchTerm) {
                 const searchTerm = appData.searchTerm.toLowerCase();
                 filtered = filtered.filter(item => 
@@ -311,32 +305,27 @@
             }
             
             appData.filteredCharts = filtered;
-            appData.currentPage = 1; // 重置到第一页
+            appData.currentPage = 1;
         }
 
-        // 渲染谱面
         function renderCharts() {
             const grid = document.getElementById("charts-grid");
             const noData = document.getElementById("no-data");
             const pageInfo = document.getElementById("page-info");
             
-            // 计算分页数据
             const start = (appData.currentPage - 1) * config.itemsPerPage;
             const end = start + config.itemsPerPage;
             const paginatedCharts = appData.filteredCharts.slice(start, end);
             const totalPages = Math.ceil(appData.filteredCharts.length / config.itemsPerPage);
             
-            // 清空现有内容
             grid.innerHTML = "";
             
-            // 显示/隐藏无数据提示
             if (paginatedCharts.length === 0) {
                 noData.style.display = "block";
             } else {
                 noData.style.display = "none";
             }
             
-            // 渲染谱面卡片
             paginatedCharts.forEach(item => {
                 const downloadUrl = `https://github.com/${config.owner}/${config.repo}/raw/${config.branch}/${config.basePath}/${item.category === "normal" ? "NormalCharts" : "NotNormalChart"}/${item.name}`;
                 
@@ -344,33 +333,28 @@
                 fileItem.className = "file-item";
                 fileItem.innerHTML = `
                     <div class="file-name">${item.name}</div>
-                    <div class="file-info">${item.category === "normal" ? "常规谱面" : "不常规谱面"}</div>
-                    <a href="${downloadUrl}" class="download-btn" download="${item.name}">下载</a>
+                    <div class="file-info">${item.category === "normal" ? "Normal" : "Not Normal"}</div>
+                    <a href="${downloadUrl}" class="download-btn" download="${item.name}">Download</a>
                 `;
                 grid.appendChild(fileItem);
             });
             
-            // 更新分页按钮状态
             document.getElementById("prev-page").disabled = appData.currentPage <= 1;
             document.getElementById("next-page").disabled = appData.currentPage >= totalPages;
             
-            // 更新页面信息
             const totalItems = appData.filteredCharts.length;
             const startItem = start + 1;
             const endItem = Math.min(end, totalItems);
-            pageInfo.textContent = `显示 ${startItem}-${endItem} 条，共 ${totalItems} 条 (第 ${appData.currentPage}/${totalPages} 页)`;
+            pageInfo.textContent = ` ${startItem}-${endItem} ,All ${totalItems} ,(Page ${appData.currentPage}/${totalPages} )`;
         }
 
-        // 初始化事件监听
         function initEventListeners() {
-            // 搜索框输入事件
             document.getElementById("search-input").addEventListener("input", (e) => {
                 appData.searchTerm = e.target.value;
                 updateFilteredCharts();
                 renderCharts();
             });
             
-            // 分类标签点击事件
             document.querySelectorAll(".category-tab").forEach(tab => {
                 tab.addEventListener("click", () => {
                     document.querySelector(".category-tab.active").classList.remove("active");
@@ -381,7 +365,6 @@
                 });
             });
             
-            // 分页按钮事件
             document.getElementById("prev-page").addEventListener("click", () => {
                 if (appData.currentPage > 1) {
                     appData.currentPage--;
@@ -398,7 +381,6 @@
             });
         }
 
-        // 页面加载完成后初始化
         document.addEventListener("DOMContentLoaded", () => {
             initEventListeners();
             fetchCharts();
