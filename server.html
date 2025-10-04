@@ -289,17 +289,17 @@
     </div>
     
     <div class="server-address-list">
-        <h2>服务器地址列表</h2>
+        <h2>Domain list</h2>
         <div class="address-item main-address">
-            <strong>主地址：</strong> t3e7.wdsjfwq.com:22060
-            <button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7.wdsjfwq.com:22060')">复制</button>
+            <strong>main：</strong> t3e7.wdsjfwq.com
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7.wdsjfwq.com')">复制</button>
         </div>
         <div class="address-item backup-address">
-            <strong>备用地址1：</strong> t3e7play.rensen.site:22060
+            <strong>backup1：</strong> t3e7play.rensen.site:22060
             <button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7play.rensen.site:22060')">复制</button>
         </div>
         <div class="address-item backup-address">
-            <strong>备用地址2：</strong> omt.rainplay.cn:22060
+            <strong>backup22：</strong> omt.rainplay.cn:22060
             <button class="copy-btn" onclick="navigator.clipboard.writeText('omt.rainplay.cn:22060')">复制</button>
         </div>
     </div>
@@ -309,8 +309,8 @@
         <div id="server-status-container">
             <div class="server-status main-server" id="main-server-status">
                 <div>
-                    <h3>主地址</h3>
-                    <p>Domain: t3e7.wdsjfwq.com:22060<button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7.wdsjfwq.com:22060')">copy</button></p>
+                    <h3>main</h3>
+                    <p>Domain: t3e7.wdsjfwq.com0<button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7.wdsjfwq.com')">copy</button></p>
                     <p>Status: <span class="loading">loading...</span></p>
                     <p class="player-count">Player: -/-</p>
                     <p>Offset: - ms</p>
@@ -320,7 +320,7 @@
             
             <div class="server-status backup-server" id="server1-status">
                 <div>
-                    <h3>备用地址1</h3>
+                    <h3>backup1</h3>
                     <p>Domain: t3e7play.rensen.site:22060<button class="copy-btn" onclick="navigator.clipboard.writeText('t3e7play.rensen.site:22060')">copy</button></p>
                     <p>Status: <span class="loading">loading...</span></p>
                     <p class="player-count">Player: -/-</p>
@@ -331,7 +331,7 @@
             
             <div class="server-status backup-server" id="server2-status">
                 <div>
-                    <h3>备用地址2</h3>
+                    <h3>backup2</h3>
                     <p>Domain: omt.rainplay.cn:22060 <button class="copy-btn" onclick="navigator.clipboard.writeText('omt.rainplay.cn:22060')">copy</button></p>
                     <p>Status: <span class="loading">loading...</span></p>
                     <p class="player-count">Player: -/-</p>
@@ -395,7 +395,7 @@
         }
         
         async function checkAllServers() {
-            const mainServer = "t3e7.wdsjfwq.com:22060";
+            const mainServer = "t3e7.wdsjfwq.com";
             const server1 = "t3e7play.rensen.site:22060";
             const server2 = "omt.rainplay.cn:22060";
             
@@ -431,3 +431,4 @@
     </script>
 </body>
 </html>
+
